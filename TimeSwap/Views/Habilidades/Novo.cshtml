@@ -1,0 +1,28 @@
+﻿@model TimeSwap.Models.HABILIDADE
+
+@{
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+       Nova Habilidade
+        <small>adicionar nova habilidade</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    @using (Html.BeginForm()){
+        <div class="box box-primary">
+            <div class="box-body">
+                @Html.LabelFor(model => model.DESCRICAO)
+                @Html.TextBoxFor(model => model.DESCRICAO, "" , new {@Class="form-control"})
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary" value="Salvar" />
+            </div>
+        </div>
+            }      
+</section>

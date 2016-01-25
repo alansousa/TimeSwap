@@ -1,0 +1,52 @@
+﻿@model TimeSwap.Models.RECURSOTAREFA
+<!--//Status da tarefa null = nao iniciado, 1= iniciado, 2=concluído ,3=pausado,4=reiniciado,5=cancelado-->
+<td style="width: 70%">
+    @Model.TAREFA.FASE.PROJETO.NOME
+    <br />
+    @Model.TAREFA.FASE.DESCRICAO
+    <br />
+    @Model.TAREFA.DESCRICAO
+</td>
+@if (Model.STATUS == 2)
+{
+    var b = Model.RecursoTarefaExecutado.Where(m => m.projetoId == Model.PROJETOID
+                  && m.faseId == Model.FASEID && m.tarefaId == Model.TAREFAID && m.recursoId == Model.RECURSOID).ToList();
+    TimeSpan horas = new TimeSpan();
+
+    foreach (var item in b)
+    {
+        var f = item.DataHoraFim.Value.Subtract(item.DataHoraInicio);
+        horas = horas.Add(new TimeSpan(f.Days, f.Hours, f.Minutes, f.Seconds));
+    }
+    <td>
+        Tarefa Concluída.
+        <br />
+        @Model.TAREFA.DURACAO horas
+        <br />
+        @horas
+    </td>
+}
+@if (Model.STATUS == null)
+{
+    <td style="text-align: center">
+        <button name="start_@Model.TAREFA.DESCRICAO" onclick="javascript:iniciarTarefa('@Model.TAREFA.DESCRICAO.Replace(" ", "")','@Model.RECURSOID','@Model.PROJETOID',@Model.FASEID.ToString(),'@Model.TAREFAID','@Model.DATAINICIO','@Model.TAREFA.DESCRICAO');" class="btn btn-sm btn-success">
+            Iniciar</button>
+    </td>
+}
+@if (Model.STATUS == 3)
+{
+    <td style="text-align: center">
+        <button name="start_@Model.TAREFA.DESCRICAO" 
+                onclick="javascript:reiniciarTarefa('@Model.TAREFA.DESCRICAO.Replace(" ", "")','@Model.RecursoTarefaExecutado.OrderByDescending(m => m.id).First().id');" class="btn btn-sm btn-success">
+            Reiniciar</button>
+    </td>
+}
+@if (Model.STATUS == 1 || Model.STATUS == 4)
+{
+    <td style="text-align: center">
+        <button name="pausar_@Model.TAREFA.DESCRICAO" onclick="javascript:pausar('@Model.TAREFA.DESCRICAO.Replace(" ", "")','@Model.RecursoTarefaExecutado.Where(m => m.RECURSOTAREFA == Model).First().id')" class="btn btn-sm btn-warning">Pausar</button>
+    </td>
+    <td style="text-align: center">
+        <button name="concluir_@Model.TAREFA.DESCRICAO" onclick="javascript:concluir('@Model.TAREFA.DESCRICAO.Replace(" ", "")','@Model.RecursoTarefaExecutado.Where(m => m.RECURSOTAREFA == Model).First().id');" class="btn btn-sm btn-primary">Concluir</button>
+    </td>
+}

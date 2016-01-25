@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TimeSwap.Models.PROJETO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Main content -->
+<section class="content">
+    @if (ViewBag.usuario != null)
+    {
+        if (ViewBag.usuario.CARGO.CARGO1 == "Gerente")
+        {
+            foreach (var item in Model)
+            {
+                if (item.GERENTEID == ViewBag.usuario.MATRICULA)
+                {
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>
+                        @item.CODIGO
+                    </h3>
+                    <p>
+                        @item.NOME
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="/Projetos/visualizar?id=@item.CODIGO" class="small-box-footer">Mais informações <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+                }
+            }
+        <div class="box box-danger">
+            <div class="box-header">
+                <h3 class="box-title">Recurso Habilidade</h3>
+            </div>
+            <div class="box-body chart-responsive">
+                <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        }
+        else
+        {
+        <div class="home-index-text">
+            Bem Vindo @ViewBag.usuario.NOME! Você tem <b>@ViewBag.qtdeTarefas
+            </b>Tarefas em aberto.
+
+        </div>
+        }
+    }
+    else
+    {
+        <div class="home-index-text">
+            Você não está logado.
+            <br />
+            Para continuar faça @Html.ActionLink("Login", "index", "Login").
+        </div>
+    }
+
+</section>

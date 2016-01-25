@@ -1,0 +1,72 @@
+﻿@model TimeSwap.Models.PROJETO
+
+@{
+    ViewBag.Title = "Visualizar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Main content -->
+<section class="content">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs pull-right">
+            <li class="pull-left header">@Model.NOME</li>
+        </ul>
+        <div class="box-body">
+            <span>Gerente Responsável @Model.RECURSO.NOME</span>
+            <a href="javascript:verinfo();">Ver Info Gerente</a>
+            <br />
+            <div id="infogerente" style="display:none">
+                <span>Matricula: @Model.RECURSO.MATRICULA</span><br />
+            <span>Email: @Model.RECURSO.EMAIL</span><br />
+            <span>Telefone: @Model.RECURSO.TELEFONE</span><br />
+                </div>
+        </div>
+        <!-- /.tab-pane -->
+        @foreach (var fase in Model.FASE.ToList())
+        { 
+            <h5><b>@fase.FASEID - @fase.DESCRICAO</b></h5>
+            @String.Format("{0:dd/MM/yyyy}", fase.INICIOBASE)<span> - </span>  @String.Format("{0:dd/MM/yyyy}", fase.FIMBASE)<br />
+            <br />
+            foreach (var tarefa in fase.TAREFA.ToList())
+            {
+            <div class="tabl">@tarefa.TAREFAID - @tarefa.DESCRICAO
+                <div class="pull-right">
+                    <a href="/Projetos/AlocarRecurso?id=@tarefa.PROJETOID&fase=@tarefa.FASEID&tarefa=@tarefa.TAREFAID" class="btn btn-default" >Alocar Recurso</a>
+                    <a href="/Projetos/VisualizarRecursos?id=@tarefa.PROJETOID&fase=@tarefa.FASEID&tarefa=@tarefa.TAREFAID" class="btn btn-default">Visualizar Recurso</a>
+                </div>
+            </div>                                            
+            <br />
+            }
+        }
+    </div>
+
+</section>
+<script>
+    document.ready(function(){
+        $.ajax({
+            type:'POST',
+            url:'/Projetos/getRecursos',
+            data : {projeto : @Model.CODIGO},
+            success: function(retorno){
+                $('#bodyRecurso').html(retorno);
+            }
+        });
+
+        
+    });
+
+    function verinfo(){
+        $('#infogerente').slideToggle();
+    }
+</script>
+
+<style type="text/css">
+    .tabl {
+        margin-left: 65px;
+    }
+
+    .tabla {
+        margin-left: 40px;
+    }
+</style>

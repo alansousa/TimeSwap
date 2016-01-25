@@ -1,0 +1,90 @@
+﻿@model List<TimeSwap.Models.RECURSO>
+
+@if(@Model.Any()){
+<thead>
+    <tr>
+        <th>NOME</th>
+        <th>Média Nível</th>
+        <th></th>
+    </tr>
+</thead>
+<tbody id="tbodyalao">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td id="tr_@item.MATRICULA">@item.NOME </td>
+            <td>@item.RECURSOHABILIDADE.Average(m => m.NIVEL).Value</td>
+            <td>
+                <a href="#" id="vermais_@item.MATRICULA" onclick="javascript:btnVerMais('@item.MATRICULA');" 
+                    class="btnVerMais btn btn-success" data-toggle="modal" data-target="#basicModal">Ver Mais</a>
+
+                <a href="#" id="vermaisTarefas_@item.MATRICULA" onclick="javascript:btnVerTarefas('@item.MATRICULA');" 
+                    class="btnVerTarefa btn btn-success" data-toggle="modal" data-target="#basicModal">Ver Agenda</a>
+
+                <a id="@item.MATRICULA" name="@item.MATRICULA" onclick="javascript:alocar(@item.MATRICULA);" 
+                    class="adicionar btn btn-default">Adicionar</a>
+            </td>
+        </tr>
+    }
+
+</tbody>
+    
+<script>
+    function alocar(projetoId, faseId, tarefaId, recursoId) {
+        var a = false;
+        $.ajax({
+            type: "POST",
+            url: "/Projetos/AlocarRecurso",
+            data: { id: projetoId, fase: faseId, tarefa: tarefaId, recursoId: recursoId },
+            success: function (result) {
+                if (result == "1") {
+                    $.bootstrapGrowl("Recurso alocado com sucesso!", {
+                        type: 'success',
+                        align: 'center',
+                        width: 'auto'
+                    });
+                } else if (result == "3") {
+                    $.bootstrapGrowl("Recurso já alocado neste período!", {
+                        type: 'danger',
+                        align: 'center',
+                        width: 'auto'
+                    });
+                }else {
+                    $.bootstrapGrowl("Recurso não alocado!", {
+                        type: 'danger',
+                        align: 'center',
+                        width: 'auto'
+                    });
+                }
+            }
+        });
+    }
+
+    function btnVerMais(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Projetos/getVerMais",
+            data: { id: id },
+            success: function (retorno) {
+                $("#tableabilities").html(retorno);
+            }
+        });
+    }
+        function btnVerTarefas(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Projetos/GetVerTarefas",
+                data: { id: id },
+                success: function (retorno) {
+                    $("#tableabilities").html(retorno);
+                }
+            });
+    }
+
+</script>
+}else{
+    <br />
+    <br />
+ <p style="margin-top: 1px; align-self: center; font-family: 'Segoe UI Light';">Não há recursos disponiveis para esta tarefa</p>
+}

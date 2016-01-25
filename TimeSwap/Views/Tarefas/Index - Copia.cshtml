@@ -1,0 +1,99 @@
+﻿@model IEnumerable<TimeSwap.Models.TAREFA>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PROJETOID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FASE.DESCRICAO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRICAO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIPO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LINHA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LINHADEP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DURACAO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.INICIOREAL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FIMREAL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.INICIOBASE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FIMBASE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PORCENTAGEM)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROJETOID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FASE.DESCRICAO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRICAO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIPO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LINHA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LINHADEP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DURACAO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.INICIOREAL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FIMREAL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.INICIOBASE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FIMBASE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PORCENTAGEM)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TAREFAID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TAREFAID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TAREFAID })
+        </td>
+    </tr>
+}
+
+</table>

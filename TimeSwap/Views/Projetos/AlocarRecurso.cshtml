@@ -1,0 +1,162 @@
+﻿@model TimeSwap.Models.RECURSOTAREFA
+@{
+    ViewBag.Title = "AlocarRecurso";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h3>Alocar Recursos</h3>
+    <h5>Tarefa: @ViewBag.Tarefa<span> - (</span>@ViewBag.inicioBaseline <span>- </span>@ViewBag.fimBaseline<span>)</span></h5>
+</section>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body form-inline">
+            <form class="form-inline">
+                <button class="btn btn-default" id="sobe">
+                    <span class="glyphicon glyphicon-chevron-up"></span>
+                </button>
+                <button class="btn btn-default" id="desce">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+                <div class="form-group">
+                    <input class="form-control" type="text" id="busca" name="Nome" placeholder="Busca por Nome" />
+                </div>
+                <button class="btn btn-default" id="buscar">Buscar</button>
+            </form>
+            <table id="tableResult" class="table">
+                <!-- aqui é onde vai carregar a partial view atraves da pesquisa -->
+            </table>
+            <br />
+        <a href="/Projetos/Visualizar?id=@ViewBag.projeto">Voltar Para o Projeto</a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <table id="tableabilities" class="table table-striped table-condensed">
+                        <!-- aqui vai carregar a partial view atraves da consulta ao botão ver mais-->
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(function () {
+        //var pesquisa = ['Nome', 'Habilidade', 'Nivel'];
+        var pesquisa = ['Nome', 'Habilidade'];
+        $("input[id*='DATA']").prop("disabled", true);
+
+        $("button[id='sobe']").click(function (e) {
+            e.preventDefault();
+            var posicao = 0;
+            var posAnterior = pesquisa.indexOf($("#busca").prop("name"));
+            var placeholder = "";
+
+            posicao = posAnterior;
+
+            if (posicao + 1 < pesquisa.length) {
+                placeholder = pesquisa[posicao + 1];
+
+                $("#busca").val('');
+                $("#busca").attr("name", placeholder);
+                $("#busca").attr("placeholder", "Busca por " + placeholder);
+            }
+        });
+
+        $("button[id='desce']").click(function (e) {
+            e.preventDefault();
+            var posicao = 0;
+            var posAnterior = pesquisa.indexOf($("#busca").prop("name"));
+            var placeholder = "";
+
+            posicao = posAnterior;
+
+            if (posicao - 1 >= 0) {
+                placeholder = pesquisa[posicao - 1];
+
+                $("#busca").val('');
+                $("#busca").attr("name", placeholder);
+                $("#busca").attr("placeholder", "Busca por " + placeholder);
+            }
+        });
+
+        $("#buscar").click(function (e) {
+            e.preventDefault();
+            var nome = $("#busca").attr("name");
+
+            if (nome == 'Nome') {
+                getByName();
+            } else if (nome == 'Habilidade') {
+                getByAbility();
+            }/* else if (nome == 'Nivel') {
+                getByLevel();
+            }*/
+        });
+
+        function getByName() {
+            var nome = ($("#busca").val() == "") ? "" : $("#busca").val();
+            var t = '@ViewBag.tarefaId';
+            var f = '@ViewBag.faseId';
+            var p = '@ViewBag.projetoId';
+            console.log(nome);
+            $.ajax({
+                type: "POST",
+                url: "/Projetos/getRHByNamePartial",
+                data: { tarefa: t, faseId: f, projetoId: p, nome: nome },
+                success: function (retorno) {
+                    $("#tableResult").html(retorno);
+                    $(".adicionar").attr('onclick',function(){
+                        var recurso = $(this).attr('name');
+                        return "javascript:alocar('" + '@ViewBag.projetoId' + "',@ViewBag.faseId, @ViewBag.tarefaId," + recurso + ");";
+                    });
+                }
+            });
+        }
+
+        
+        function getByAbility() {
+            var habilidade = ($("#busca").val() == "") ? "" : $("#busca").val();
+            $.ajax({
+                type: "POST",
+                url: "/Projetos/getRHByAbility",
+                data: {habilidade:habilidade},
+                success: function (retorno) {
+                    $("#tableResult").html(retorno);
+                    $(".adicionar").attr('onclick', function () {
+                        var recurso = $(this).attr('name');
+                        return "javascript:alocar('" + '@ViewBag.projetoId' + "',@ViewBag.faseId, @ViewBag.tarefaId," + recurso + ");";
+                    });
+
+                }
+            });
+        }
+
+/*        function getByLevel(nivel) {
+            var nivel = ($("#busca").val() == "") ? "" : $("#busca").val();
+            $.ajax({
+                type: "POST",
+                url: "/Projetos/getRHByLevel",
+                data: {nivel:nivel},
+                success: function (retorno) {
+                    $("#tableResult").html(retorno);
+                    $(".adicionar").attr('onclick', function () {
+                        var recurso = $(this).attr('name');
+                        return "javascript:alocar('" + 'ViewBag.projetoId' + "',ViewBag.faseId, ViewBag.tarefaId," + recurso + ");";
+                    });
+                }
+            });
+        }*/
+       
+    });
+</script>
+

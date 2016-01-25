@@ -1,0 +1,99 @@
+﻿@model TimeSwap.Models.TAREFA
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TAREFA</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PROJETOID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PROJETOID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FASE.DESCRICAO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FASE.DESCRICAO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DESCRICAO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESCRICAO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TIPO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TIPO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LINHA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LINHA)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LINHADEP)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LINHADEP)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DURACAO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DURACAO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.INICIOREAL)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.INICIOREAL)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FIMREAL)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FIMREAL)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.INICIOBASE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.INICIOBASE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FIMBASE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FIMBASE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PORCENTAGEM)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PORCENTAGEM)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.TAREFAID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TimeSwap.Models.RECURSOTAREFA>
+@{
+    ViewBag.Title = "Visualizar Recursos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    if (Model.Any())
+    {
+    <section class="content-header">
+        <h1>Recursos Alocados
+        </h1>
+    </section>
+
+    <section class="content">
+        <table class="table table-bordered">
+            <thead>
+                <th colspan="5">Recursos</th>
+            </thead>
+            <tbody>
+                @foreach (var rt in Model)
+                {
+                    <tr>
+                        <td>@rt.RECURSO.NOME</td>
+                        <td>@rt.TAREFA.DESCRICAO</td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", rt.DATAINICIO)</td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", rt.DATAFIM)</td>
+                        <td>
+                            <button class="btn btn-danger">Apagar</button>
+                            <button class="btn btn-primary">Editar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a href="/Projetos/Visualizar?id=@ViewBag.projeto">Voltar Para o Projeto</a>
+    </section>
+    }
+    else
+    {
+    <section class="content">
+        Não há recursos.
+        <br />
+        <a href="/Projetos/Visualizar?id=@ViewBag.projeto">Voltar Para o Projeto</a>
+    </section>
+    }
+}
+else
+{
+    <section class="content">
+        Não há recursos.
+        <br />
+        <a href="/Projetos/Visualizar?id=@ViewBag.projeto">Voltar Para o Projeto</a>
+    </section>
+}

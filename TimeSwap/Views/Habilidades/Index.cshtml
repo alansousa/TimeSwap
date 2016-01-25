@@ -1,0 +1,76 @@
+﻿@model IEnumerable<TimeSwap.Models.HABILIDADE>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<section class="content">
+    <table class="table table-condensed center">
+        <thead>
+            <tr>
+                <td colspan="2">
+                    <h1>Habilidades
+                <a class="pull-right" href="/Habilidades/Novo">Novo</a></h1>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var habilidades in Model)
+            {
+                <tr id="@habilidades.ID">
+                    <td>@habilidades.DESCRICAO</td>
+                    <td>
+                        <a href="#" class="btn btn-danger apagar" name="@habilidades.DESCRICAO" onclick="javascript:deletar(@habilidades.ID,'@habilidades.DESCRICAO');">Apagar</a>
+                    <!--@Html.ActionLink("Editar", "Edit", "Cargos",null, new { id = @habilidades.ID });-->
+                        @Html.ActionLink("Edit", "Edit", new { id = habilidades.ID }, new {@class="btn btn-default" })
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+<script>
+    function deletar(id, nome) {
+        var sucesso = false;
+
+        $.confirm({
+            text: "<br>Tem certeza que quer apagar este Habilidade: " + nome,
+            confirm: function (button) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Habilidades/Deleta",
+                    data: { id: id },
+                    success: function (result) {
+                        if (result != "") {
+                            sucesso = true;
+                        }
+                    },
+                }).done(function () {
+                    if (sucesso) {
+                        $('tr[id=' + id + ']').remove();
+                        $.bootstrapGrowl("Excluído com sucesso!", {
+                            type: 'success',
+                            align: 'center',
+                            width: 'auto'
+                        });
+                    } else {
+                        $.bootstrapGrowl("A Habilidade não pode ser excluída!", {
+                            type: 'danger',
+                            align: 'center',
+                            width: 'auto'
+                        });
+                    }
+                });
+            },
+            cancel: function (button) {
+            },
+            confirmButton: "Sim",
+            cancelButton: "Não"
+        });
+    }
+</script>
+
+
+<script src="~/Scripts/modalRecursoHabilidade.js"></script>
+<script src="~/Scripts/jquery.confirm.js"></script>
+<script src="~/Scripts/jquery.bootstrap-growl.js"></script>
+

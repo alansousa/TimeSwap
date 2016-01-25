@@ -1,0 +1,33 @@
+﻿@model TimeSwap.Models.CARGO
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>CARGO</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CARGO1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CARGO1)
+            @Html.ValidationMessageFor(model => model.CARGO1)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

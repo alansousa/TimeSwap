@@ -1,0 +1,71 @@
+﻿@model IEnumerable<TimeSwap.Models.CARGO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="content">
+    <table class="table table-condensed center">
+        <thead>
+            <tr>
+                <td colspan="2">
+                    <h1>Cargos
+                <a class="pull-right" href="/Cargos/Novo">Novo</a></h1>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cargo in Model)
+            {
+                <tr id="@cargo.ID">
+                    <td>@cargo.CARGO1</td>
+                    <td>
+                        <a href="#" class="btn btn-danger apagar" name="@cargo.CARGO1" onclick="javascript:deletar(@cargo.ID,'@cargo.CARGO1');">Apagar</a>
+                    <!--@Html.ActionLink("Editar", "Edit", "Cargos",null, new { id = @cargo.ID });-->
+                        @Html.ActionLink("Edit", "Edit", new { id = cargo.ID }, new {@class="btn btn-default" })
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+<script>
+    function deletar(id,nome) {
+        var sucesso = false;
+
+        $.confirm({
+            text: "<br>Tem certeza que quer apagar este Cargo: " + nome,
+            confirm: function (button) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Cargos/Deleta",
+                    data: { id: id },
+                    success: function (result) {
+                        if (result != "") {
+                            sucesso = true;
+                        }
+                    },
+                }).done(function () {
+                    if (sucesso) {
+                        $('tr[id=' + id + ']').remove();
+                        $.bootstrapGrowl("Excluído com sucesso!", {
+                            type: 'success',
+                            align: 'center',
+                            width: 'auto'
+                        });
+                    } else {
+                        $.bootstrapGrowl("O Cargo não pode ser excluído!", {
+                            type: 'danger',
+                            align: 'center',
+                            width: 'auto'
+                        });
+                    }
+                });
+            },
+            cancel: function (button) {
+            },
+            confirmButton: "Sim",
+            cancelButton: "Não"
+        });
+    }
+</script>
+<script src="~/Scripts/jquery.confirm.js"></script>
+<script src="~/Scripts/jquery.bootstrap-growl.js"></script>

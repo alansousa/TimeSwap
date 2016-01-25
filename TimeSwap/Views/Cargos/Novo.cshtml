@@ -1,0 +1,32 @@
+﻿@model TimeSwap.Models.CARGO
+
+@{
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content-header">
+    <h1>
+       Novo Cargo
+        <small>adicionar novo cargo</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    @using (Html.BeginForm()){
+        <div class="box box-primary">
+            <div class="box-body">
+                Nome do cargo
+                @Html.TextBoxFor(model => model.CARGO1, "" , new {@Class="form-control"})
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary pull-left" value="Salvar" />
+                <div>
+                    @Html.ActionLink("Voltar", "Index", "Cargos", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+            }      
+</section>

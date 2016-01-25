@@ -1,0 +1,111 @@
+﻿@model TimeSwap.Models.RECURSO
+
+@{
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    List<SelectListItem> listHabilidades = new List<SelectListItem>();
+
+    if (ViewBag.Cargos != null)
+    {
+
+        foreach (var i in ViewBag.Cargos)
+        {
+            listItems.Add(new SelectListItem
+            {
+                Text = i.CARGO1.ToString(),//i.CARGO,
+                Value = "" + i.ID + ""
+            });
+        }
+    }
+
+    if (ViewBag.Habilidades != null)
+    {
+        foreach (var i in ViewBag.Habilidades)
+        {
+            listHabilidades.Add(new SelectListItem
+            {
+                Text = i.DESCRICAO.ToString(),//i.CARGO,
+                Value = "" + i.ID + ""
+            });
+        }
+    }
+}
+
+<section class="content-header">
+    <h1>Novo Recursos
+        <small>adicionar novo recursos</small>
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    @using (Html.BeginForm())
+    {
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs pull-right">
+                <li class="active"><a href="#tab_1-1" data-toggle="tab">Dados pessoais</a></li>
+                <li class=""><a href="#tab_2-2" data-toggle="tab">Habilidades</a></li>
+                <li class="pull-left header"><i class="fa fa-th"></i></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1-1">
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            @Html.LabelFor(model => model.LOGIN)
+                            @Html.TextBoxFor(model => model.LOGIN, "", new { @Class = "form-control" })
+
+                            @Html.LabelFor(model => model.SENHA)
+                            @Html.PasswordFor(model => model.SENHA, new { @Class = "form-control" })
+
+                            @Html.LabelFor(model => model.MATRICULA)
+                            @Html.TextBoxFor(model => model.MATRICULA, "", new { @Class = "form-control" })
+
+                            @Html.LabelFor(model => model.NOME)
+                            @Html.TextBoxFor(model => model.NOME, "", new { @Class = "form-control" })
+
+                            @Html.LabelFor(model => model.EMAIL)
+                            @Html.TextBoxFor(model => model.EMAIL, "", new { @Class = "form-control" })
+
+                            @Html.LabelFor(model => model.CPF)
+                            @Html.TextBoxFor(model => model.CPF, "", new { @Class = "form-control" })
+
+                            @Html.LabelFor(model => model.TELEFONE)
+                            @Html.TextBoxFor(model => model.TELEFONE, "", new { @Class = "form-control" })
+
+                            @Html.LabelFor(model => model.CARGO)
+                            @Html.DropDownListFor(model => model.CARGOID, listItems, "Selecione o cargo", new { @class = "form-control", style = "width: 399px;" })
+
+                            @Html.LabelFor(model => model.HOMEMHORA)
+                            @Html.TextBoxFor(model => model.HOMEMHORA, "", new { @Class = "form-control" })
+                        </div>
+                        <div class="box-footer">
+                            <input type="submit" class="btn btn-primary" value="Enviar" />
+                        </div>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2-2">
+                    <div id="habilidade">
+                        <div class="novaHabilidade">
+                            @Html.DropDownList("h", listHabilidades, "Selecione uma habilidade", new { @class = "form-control listhab", style = "width: 399px;" })
+                            <select class="form-control nivel" style="width: 399px; margin-left: 424px; margin-top: -34px;">
+                                <option value="1">Básico</option>
+                                <option value="2">Intermediário</option>
+                                <option value="3">Avançado</option>
+                            </select>
+                            <a class="btnSalvarHabilidade btn btn-primary" style="margin-left: 833px; margin-top: -56px;"><span class="glyphicon glyphicon-floppy-disk ico-white">Salvar</span></a>
+                            <a class="btnApagarHabilidade btn btn-danger" style="margin-left: 925px; margin-top: -96px;"><span class="glyphicon glyphicon-trash ico-white">Apagar</span></a>
+                            <br />
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary btnNovaHabilidade">Nova habilidade</a>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+        </div>
+    }
+</section>
+<script src="~/Scripts/RecursoHabilidades.js"></script>
+<script src="~/Scripts/jquery.mask.js"></script>

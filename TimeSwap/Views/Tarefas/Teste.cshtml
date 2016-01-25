@@ -1,0 +1,32 @@
+﻿@model IEnumerable<TimeSwap.Models.RECURSOTAREFA>
+
+@{
+    ViewBag.Title = "Teste";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model != null)
+{
+    <h3 style="margin-top: 1px; align-self: center; font-family: 'Segoe UI Light'; font-size: xx-large">Tarefas</h3>
+    
+    foreach (var item in Model)
+    {
+        <div class="box box-solid" style="width: 60%; margin-left: 2%; font-family: 'Segoe UI Light'; font-size: medium">
+            <label class="data">
+                @String.Format("{0:dd/MM/yyyy}", item.DATAINICIO)
+            </label>
+            <table class="table table-stripped table-condensed" style="width: 100%">
+                <tr name="div_@item.TAREFA.DESCRICAO.Length"  modelid="@ViewBag.IdRte">
+                    @Html.Partial("_PartialBotoesTarefas", item)
+                </tr>
+            </table>
+        </div>
+    }
+
+}else{
+    <section >
+            <div class="home-index-text">
+                Você não possui tarefas.
+                <br />
+            </div>
+        </section>
+}

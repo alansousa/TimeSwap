@@ -1,0 +1,32 @@
+﻿@model TimeSwap.Models.RECURSO
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content login">
+    <h2>Time Swap</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="box box-primary">
+            <div class="box-body clearfix">
+                <div class="pull-left form-size">
+                    @Html.LabelFor(model => model.LOGIN)
+                    @Html.TextBoxFor(model => model.LOGIN, "", new { @Class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.LOGIN)
+                </div>
+                <div class="pull-left form-size">
+                    @Html.LabelFor(model => model.SENHA)
+                    @Html.PasswordFor(model => model.SENHA, new { @Class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SENHA)
+                </div>
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary" value="Login" />
+            </div>
+        </div>
+    }
+</section>

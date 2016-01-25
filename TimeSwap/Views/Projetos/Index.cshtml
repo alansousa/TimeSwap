@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TimeSwap.Models.PROJETO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+       Projetos
+        <a href="/Projetos/Importar" class="pull-right">Novo Projeto</a>        
+    </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    @foreach (var item in Model){
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h3>
+                    @item.CODIGO
+                </h3>
+                <p>s
+                   @item.NOME
+                </p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            @Html.ActionLink("Ver Projeto", "ProjetoFases", new { id = @item.CODIGO }, new { @class = "small-box-footer" })
+
+            <a href="/Projetos/visualizar?id=@item.CODIGO" class="small-box-footer">
+                Mais informações <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    }
+    
+ </section>

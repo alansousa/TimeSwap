@@ -1,0 +1,48 @@
+﻿@model TimeSwap.Models.PROJETO
+
+@{
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<SelectListItem> listItems = new List<SelectListItem>();
+
+    foreach (var i in ViewBag.Gerentes)
+    {
+        listItems.Add(new SelectListItem
+        {
+            Text = i.NOME.ToString(),//i.CARGO,
+            Value = i.MATRICULA.ToString()
+        });
+    }
+
+    
+}
+
+
+<section class="content-header">
+    <h1>
+       Projeto
+        <small>adicionar novo projeto</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li> <!-- Opcional -->
+        <li class="active">Dashboard</li><!-- Opcional -->
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    @using (Html.BeginForm()){
+        <div class="box box-primary">
+            <div class="box-body">
+                Nome do projeto
+                @Html.TextBoxFor(model => model.NOME, "",  new {@class="form-control"}) 
+                Gerente de projetos
+                @Html.DropDownListFor(model => model.GERENTEID , listItems, "Selecione um gerente", new { @class="form-control", style="width: 399px;"})
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary" value="Avançar" />
+            </div>
+        </div>
+            }      
+</section>

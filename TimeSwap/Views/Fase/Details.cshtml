@@ -1,0 +1,65 @@
+﻿@model TimeSwap.Models.FASE
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>FASE</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PROJETO.NOME)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PROJETO.NOME)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DESCRICAO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESCRICAO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.INICIOREAL)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.INICIOREAL)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FIMREAL)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FIMREAL)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.INICIOBASE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.INICIOBASE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FIMBASE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FIMBASE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DURACAO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DURACAO)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.FASEID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

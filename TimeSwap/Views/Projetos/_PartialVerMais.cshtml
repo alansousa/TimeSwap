@@ -1,0 +1,19 @@
+﻿@model List<TimeSwap.Models.RECURSOHABILIDADE>
+
+<thead>
+    <tr>
+        <th>Habilidade</th>
+        <th>Nivel</th>
+    </tr>
+</thead>
+<tbody id="corpo">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.HABILIDADE.DESCRICAO</td>
+            <td>@item.NIVEL</td>
+        </tr>
+    }
+
+</tbody>

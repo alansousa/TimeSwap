@@ -1,0 +1,79 @@
+﻿@model IEnumerable<TimeSwap.Models.RECURSO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>Recursos
+    <a href="/Recursos/novo" class="pull-right">Novo</a>
+    </h1>
+</section>
+
+<table class="table table-bordered">
+    <thead>
+        <th>Nome</th>
+        <th>Cargo</th>
+        <th>CPF</th>
+        <th>Email</th>
+        <th>matricula</th>
+        <th>telefone</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <section class="content">
+            @foreach (var rec in Model)
+            {
+                <tr id="tr_@rec.MATRICULA">
+                    <td>@rec.NOME</td>
+                    <td>@rec.CARGO.CARGO1</td>
+                    <td>@rec.CPF</td>
+                    <td>@rec.EMAIL</td>
+                    <td>@rec.MATRICULA</td>
+                    <td>@rec.TELEFONE</td>
+                    <td>
+                        <button class="btn btn-danger apagar" id="@rec.MATRICULA" name="@rec.NOME">Apagar</button>
+                        <A class="btn btn-primary editar" id="@rec.MATRICULA" href="/Recursos/Editar?matricula=@rec.MATRICULA" name="@rec.NOME">Editar</A></td>
+                </tr>
+            }
+        </section>
+    </tbody>
+</table>
+<script>
+    $(function () {
+        $(".apagar").click(function () {
+            var recurso = $(this).attr('name');
+            var id = $(this).attr('id');
+            var sucesso = false;
+            $.confirm({
+                text: "<br>Tem certeza que quer apagar este Recurso: " + recurso + " e Suas habildiades?",
+                confirm: function (button) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Recursos/Deleta",
+                        data: { id: id },
+                        success: function (result) {
+                            sucesso = true;
+                        },
+                    }).done(function () {
+                        if (sucesso) {
+                            $('tr[id=tr_' + id + ']').remove();
+                            $.bootstrapGrowl("Excluído com sucesso!", {
+                                type: 'success',
+                                align: 'center',
+                                width: 'auto'
+                            });
+                        }
+                    });
+                },
+                cancel: function (button) {
+                },
+                confirmButton: "Sim",
+                cancelButton: "Não"
+            });
+        });
+    });
+</script>
+<script src="~/Scripts/jquery.confirm.js"></script>
+<script src="~/Scripts/jquery.bootstrap-growl.js"></script>

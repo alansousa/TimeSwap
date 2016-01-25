@@ -1,0 +1,47 @@
+﻿@model TimeSwap.Models.PROJETO
+@{
+    ViewBag.Title = "Importar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+<h2>Importar</h2>
+
+@using (Html.BeginForm("Importar", "Projetos", FormMethod.Post, new { EncType = "multipart/form-data" }))
+{ 
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs pull-right">
+            <li class="active"><a href="#tab_1-1" data-toggle="tab">Dados pessoais</a></li>
+            <li class=""><a href="#tab_2-2" data-toggle="tab">Habilidades</a></li>
+            <li class=""><a href="#tab_3-3" data-toggle="tab">Projetos</a></li>
+            <li class="pull-left header"><i class="fa fa-th"></i></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1-1">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        Caminho do Arquivo
+                <input type="file" id="caminho" name="caminho" />
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.CODIGO)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.CODIGO)
+                            @Html.ValidationMessageFor(model => model.CODIGO)
+                        </div>
+
+                        <div class="editor-label">
+                        Gerente de projetos <br />
+                        @Html.DropDownList("GERENTEID", String.Empty)
+                        @Html.ValidationMessageFor(model => model.GERENTEID)
+                        </div>
+                        <div class="box-footer">
+                            <input type="submit" class="btn btn-primary" value="Avançar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

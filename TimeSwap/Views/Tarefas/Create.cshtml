@@ -1,0 +1,124 @@
+﻿@model TimeSwap.Models.TAREFA
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TAREFA</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PROJETOID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PROJETOID)
+            @Html.ValidationMessageFor(model => model.PROJETOID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FASEID, "FASE")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("FASEID", String.Empty)
+            @Html.ValidationMessageFor(model => model.FASEID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DESCRICAO)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DESCRICAO)
+            @Html.ValidationMessageFor(model => model.DESCRICAO)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TIPO)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TIPO)
+            @Html.ValidationMessageFor(model => model.TIPO)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LINHA)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LINHA)
+            @Html.ValidationMessageFor(model => model.LINHA)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LINHADEP)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LINHADEP)
+            @Html.ValidationMessageFor(model => model.LINHADEP)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DURACAO)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DURACAO)
+            @Html.ValidationMessageFor(model => model.DURACAO)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.INICIOREAL)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.INICIOREAL)
+            @Html.ValidationMessageFor(model => model.INICIOREAL)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FIMREAL)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FIMREAL)
+            @Html.ValidationMessageFor(model => model.FIMREAL)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.INICIOBASE)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.INICIOBASE)
+            @Html.ValidationMessageFor(model => model.INICIOBASE)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FIMBASE)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FIMBASE)
+            @Html.ValidationMessageFor(model => model.FIMBASE)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PORCENTAGEM)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PORCENTAGEM)
+            @Html.ValidationMessageFor(model => model.PORCENTAGEM)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
