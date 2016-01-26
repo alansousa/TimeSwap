@@ -30,7 +30,8 @@
             <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            @Html.ActionLink("Ver Projeto", "ProjetoFases", new { id = @item.CODIGO }, new { @class = "small-box-footer" })
+            @*@Html.ActionLink("Ver Projeto", "ProjetoFases", new { id = @item.CODIGO }, new { @class = "small-box-footer" })*@
+            @Html.ActionLink("Ver Projeto", "Visualizar", new { id = @item.CODIGO }, new { @class = "small-box-footer" })
 
             <a href="/Projetos/visualizar?id=@item.CODIGO" class="small-box-footer">
                 Mais informações <i class="fa fa-arrow-circle-right"></i>
