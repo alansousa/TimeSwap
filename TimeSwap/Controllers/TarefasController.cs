@@ -116,19 +116,17 @@ namespace TimeSwap.Controllers
         #region ExecucaoTarefas
         public ActionResult Tarefas()
         {
-            if (this.ControllerContext.HttpContext.Request.Cookies["Login"].Value != null)
+            if (ControllerContext.HttpContext.Request.Cookies["Login"].Value != null)
             {
-                var usuario = this.ControllerContext.HttpContext.Request.Cookies["Login"].Value;
+                var usuario = ControllerContext.HttpContext.Request.Cookies["Login"].Value;
 
                 var tarefa = db.RECURSOTAREFA.Where(t => t.RECURSO.LOGIN == usuario);
+
                 if (tarefa.Any())
-                {
-                    return View(tarefa);
-                }
+                   return View(tarefa);
                 else
-                {
-                    return View();
-                }
+                   return View();
+                
             }
             return View("Index", "Home");
         }

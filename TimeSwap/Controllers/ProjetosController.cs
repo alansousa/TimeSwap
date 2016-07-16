@@ -32,9 +32,11 @@ namespace TimeSwap.Controllers
         public ActionResult Visualizar(string id)
         {
             var projeto = ctx.PROJETO.Where(proj => proj.CODIGO == id).First();
+
             @ViewBag.recursoTarefa = ctx.RECURSOTAREFA.Where(m => m.PROJETOID == id).ToList();
             @ViewBag.fases = ctx.RECURSOTAREFA.Where(m => m.PROJETOID == id).ToList();
             @ViewBag.projeto = projeto.CODIGO;
+
             return View(projeto);
         }
 

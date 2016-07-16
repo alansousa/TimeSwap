@@ -18,7 +18,7 @@ namespace TimeSwap.Models
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
             modelBuilder.Properties().Where(p => p.Name == p.DeclaringType.Name + "ID")
-                .Configure(p => p.IsKey())                ;
+                .Configure(p => p.IsKey());
         }
 
         public DbSet<CARGO> CARGO { get; set; }
